@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+ >
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ptsl.faisal.loginproject.login.ViewModel.LoginViewmodel"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".login.View.MainActivity">
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            app:addTextChangedListener="@{viewModel.emailTextWatcher}"/>
+
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            app:addTextChangedListener="@{viewModel.passwordTextWatcher}"/>
+
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{viewModel::onLoginBtnClick}"/>
+    </LinearLayout>
+
+</layout>
