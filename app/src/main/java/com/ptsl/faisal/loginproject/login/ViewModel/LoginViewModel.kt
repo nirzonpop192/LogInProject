@@ -7,7 +7,7 @@ import android.view.View
 import com.ptsl.faisal.loginproject.login.Interface.LoginResultCallBack
 import com.ptsl.faisal.loginproject.login.Model.User
 
-class LoginViewmodel(private val listener: LoginResultCallBack) : ViewModel() {
+class LoginViewModel(private val listener: LoginResultCallBack) : ViewModel() {
 
     private val user: User
 
@@ -53,10 +53,17 @@ class LoginViewmodel(private val listener: LoginResultCallBack) : ViewModel() {
 
     fun onLoginBtnClick(view: View) {
 
-        if (user.isDataValid)
+        var loginCode: Int = user.isDataValid()
+
+        if (loginCode == User.SUCCESSFUL_LOGIN)
             listener.onSuccess("Login Success")
-        else
-            listener.onError("Login Error")
+        else if (loginCode == User.EMPTY_EMAIL)
+            listener.onError("Email is Empty")
+        else if (loginCode == User.EMPTY_PASSWORD)
+            listener.onError("Password is Empty")
+        else if(loginCode== User.NOT_EMAIL)
+            listener.onError("Not a valid email")
     }
+
 
 }
