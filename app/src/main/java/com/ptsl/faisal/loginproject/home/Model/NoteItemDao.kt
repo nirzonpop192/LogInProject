@@ -10,11 +10,11 @@ import android.arch.persistence.room.Query
 interface NoteItemDao {
 
     @Insert(onConflict = REPLACE)
-    fun insertListItem(noteItem: NoteItem): Long
+    fun insert(noteItem: NoteItem): Long
 
     @Delete
     fun deleteListItem(noteItem: NoteItem)
 
     @Query("Select * from NoteItem")
-    fun getNoteList()
+    fun getNoteList():List<NoteItem>
 }
