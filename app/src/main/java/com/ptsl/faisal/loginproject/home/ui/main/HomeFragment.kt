@@ -8,49 +8,55 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ptsl.faisal.loginproject.R
-import com.ptsl.faisal.loginproject.home.Model.DbWorkerThred
+import com.ptsl.faisal.loginproject.home.Model.DbWorkerThread
 import com.ptsl.faisal.loginproject.home.Model.NoteItem
 import com.ptsl.faisal.loginproject.home.Model.NoteItemDataBase
+import com.ptsl.faisal.loginproject.home.ViewModel.HomeViewModel
 
 
-class MainFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     private var mRoomDB:NoteItemDataBase?=null
 
-    private lateinit var mDbWorkerThred: DbWorkerThred
+    private lateinit var mDbWorkerThread: DbWorkerThread
 
     private val mUIHandler=Handler()
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = HomeFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        mDbWorkerThred= DbWorkerThred("dbWorkerThread")
-        mDbWorkerThred.start()
+        mDbWorkerThread= DbWorkerThread("dbWorkerThread")
+        mDbWorkerThread.start()
 
 
 
         mRoomDB= NoteItemDataBase.getInstance(this.activity!!)
 
-        insertNoteDataInDb(NoteItem(4545,"Dime","Hello","2154563"))
+
         return inflater.inflate(R.layout.main_fragment, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        insertNoteDataInDb(NoteItem(4545,"Dime","Hello","2154563"))
     }
 
 
     private fun insertNoteDataInDb(noteData: NoteItem) {
         val task = Runnable { mRoomDB?.noteItemDataDao()?.insert(noteData) }
-        mDbWorkerThred.postTask(task)
+        mDbWorkerThread.postTask(task)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
     }
 
 }

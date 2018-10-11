@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.util.Patterns
 
 
-
+// These observable fields will update Views automatically
  class User(private var email: String, private var password: String) : BaseObservable() {
 
      companion object {

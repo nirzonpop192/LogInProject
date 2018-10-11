@@ -4,7 +4,7 @@ import android.os.AsyncTask
 import android.os.Handler
 import android.os.HandlerThread
 
-class DbWorkerThred(threadName: String): HandlerThread(threadName) {
+class DbWorkerThread(threadName: String): HandlerThread(threadName) {
 
     private  lateinit var mWorkerHandler :Handler
 
